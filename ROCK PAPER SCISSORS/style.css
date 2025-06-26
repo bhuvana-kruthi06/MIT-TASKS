@@ -1,0 +1,67 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+  background: #0f0f0f;
+  color: #fff;
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  text-align: center;
+  background: #1a1a1a;
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 0 20px #0ff;
+  max-width: 400px;
+  width: 90%;
+}
+
+h1 {
+  margin-bottom: 20px;
+  font-size: 2rem;
+  color: #0ff;
+}
+
+.scoreboard {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px 0;
+  font-size: 1.2rem;
+}
+
+.choices {
+  margin: 20px 0;
+}
+
+.choice {
+  font-size: 2.5rem;
+  margin: 0 10px;
+  background: transparent;
+  border: 2px solid #0ff;
+  border-radius: 50%;
+  padding: 15px;
+  cursor: pointer;
+  transition: 0.3s;
+  color: #0ff;
+}
+
+.choice:hover {
+  background-color: #0ff;
+  color: #000;
+  transform: scale(1.2);
+  box-shadow: 0 0 15px #0ff;
+}
+
+.result {
+  margin-top: 20px;
+  font-size: 1.2rem;
+  color: #fff;
+}
