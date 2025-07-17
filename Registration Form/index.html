@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tech for Girls - Registration</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+    body {
+      margin: 0;
+      padding: 2rem;
+      background: linear-gradient(135deg, #e0f7fa, #fce4ec);
+      color: #212121;
+      transition: background 0.3s, color 0.3s;
+    }
+    body.dark {
+      background: #121212;
+      color: #e0e0e0;
+    }
+    .container {
+      max-width: 700px;
+      margin: auto;
+      background: white;
+      padding: 2rem 2.5rem;
+      border-radius: 16px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      animation: fadeIn 0.5s ease-in-out;
+    }
+    body.dark .container {
+      background: #1e1e1e;
+      box-shadow: 0 10px 20px rgba(255, 255, 255, 0.1);
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    h1 {
+      text-align: center;
+      color: #6a1b9a;
+    }
+    body.dark h1 {
+      color: #bb86fc;
+    }
+    label {
+      display: block;
+      margin: 1rem 0 0.5rem;
+      font-weight: 600;
+    }
+    input, select {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid #cfd8dc;
+      border-radius: 12px;
+      font-size: 1rem;
+      background: #fafafa;
+      transition: border 0.3s;
+    }
+    body.dark input,
+    body.dark select {
+      background: #333;
+      border-color: #555;
+      color: #fff;
+    }
+    input:focus, select:focus {
+      border-color: #7e57c2;
+      outline: none;
+    }
+    button {
+      margin-top: 1.5rem;
+      background: linear-gradient(to right, #8e24aa, #d81b60);
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      font-weight: 600;
+      width: 100%;
+    }
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(216, 27, 96, 0.3);
+    }
+    #whatsapp-count {
+      margin-top: 0.5rem;
+      font-size: 0.9rem;
+      color: #6d4c41;
+      text-align: center;
+    }
+    .success-message {
+      margin-top: 1.5rem;
+      padding: 1rem;
+      background: #dcedc8;
+      color: #33691e;
+      border: 1px solid #8bc34a;
+      border-radius: 12px;
+      text-align: center;
+      font-weight: 600;
+      display: none;
+    }
+    input[type="file"]::file-selector-button {
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      border: none;
+      background-color: #ab47bc;
+      color: white;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    .dark-toggle {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: none;
+      color: #333;
+      font-size: 1rem;
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      border: 1px solid #999;
+      cursor: pointer;
+      z-index: 999;
+    }
+    body.dark .dark-toggle {
+      color: #fff;
+      border-color: #bbb;
+    }
+    body.dark .dark-toggle {
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+  <button class="dark-toggle" id="toggleDarkMode">🌙</button>
+  <div class="container">
+    <h1>✨ Register - Tech for Girls ✨</h1>
+    <form action="https://script.google.com/macros/s/AKfycbxw7wE9m9uY2-fm-ogmwNktEDYa0C6CJven7RGAphaxuZ4TwUB3Fvi3EcTVT6gwXEk/exec" method="post">
+      <label for="name">Name</label>
+      <input type="text" id="name" required />
+
+      <label for="phone">Phone Number</label>
+      <input type="number" id="phone" required />
+
+      <label for="email">Email ID</label>
+      <input type="email" id="email" required />
+
+      <label for="college">College/Department</label>
+      <input type="text" id="college" required />
+
+      <label>Upload Screenshot</label>
+      <input type="file" id="screenshot" accept="image/*,.pdf" required />
+
+      <button type="button" id="shareBtn">📤 Share on WhatsApp</button>
+      <div id="whatsapp-count">Click count: 0/5</div>
+
+      <button type="submit" id="submitBtn">✅ Submit Registration</button>
+    </form>
+
+    <div class="success-message" id="successMessage">
+      🎉 Your submission has been recorded. Thanks for being part of Tech for Girls!
+    </div>
+  </div>
+
+  <script>
+    const shareBtn = document.getElementById('shareBtn');
+    const countDisplay = document.getElementById('whatsapp-count');
+    const form = document.getElementById('registrationForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const successMessage = document.getElementById('successMessage');
+    const toggleDarkMode = document.getElementById('toggleDarkMode');
+
+    let clickCount = 0;
+
+    // Dark mode
+    toggleDarkMode.addEventListener('click', () => {
+      document.body.classList.toggle('dark');
+      const isDark = document.body.classList.contains('dark');
+      localStorage.setItem('theme', isDark ? 'dark' : 'light');
+      toggleDarkMode.textContent = isDark ? '☀️' : '🌙';
+    });
+
+    if (localStorage.getItem('theme') === 'dark') {
+      document.body.classList.add('dark');
+      toggleDarkMode.textContent = '☀️';
+    } else {
+      toggleDarkMode.textContent = '🌙';
+    }
+
+    if (localStorage.getItem('submitted')) {
+      disableForm();
+    }
+
+    shareBtn.addEventListener('click', () => {
+      if (clickCount < 5) {
+        clickCount++;
+        window.open('https://wa.me/?text=Hey%20Buddy%2C%20Join%20Tech%20For%20Girls%20Community', '_blank');
+        countDisplay.textContent = `Click count: ${clickCount}/5`;
+        if (clickCount === 5) {
+          countDisplay.textContent += ' - Sharing complete. Please continue.';
+        }
+      }
+    });
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (clickCount < 5) {
+        alert('Please complete WhatsApp sharing (5 times) before submitting.');
+        return;
+      }
+
+      const name = document.getElementById('name').value;
+      const phone = document.getElementById('phone').value;
+      const email = document.getElementById('email').value;
+      const college = document.getElementById('college').value;
+      const screenshot = document.getElementById('screenshot').files[0];
+
+      const formData = new FormData();
+      formData.append('name', name);
+      formData.append('phone', phone);
+      formData.append('email', email);
+      formData.append('college', college);
+      formData.append('screenshot', screenshot);
+
+      const scriptURL = 'YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL';
+
+      try {
+        const response = await fetch(scriptURL, { method: 'POST', body: formData });
+        if (response.ok) {
+          localStorage.setItem('submitted', true);
+          disableForm();
+          successMessage.style.display = 'block';
+        } else {
+          alert('Submission failed. Please try again.');
+        }
+      } catch (error) {
+        alert('Error submitting form. Check console for details.');
+        console.error(error);
+      }
+    });
+
+    function disableForm() {
+      [...form.elements].forEach((el) => (el.disabled = true));
+      shareBtn.disabled = true;
+      submitBtn.disabled = true;
+      successMessage.style.display = 'block';
+    }
+  </script>
+</body>
+</html>
